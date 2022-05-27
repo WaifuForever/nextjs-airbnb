@@ -25,6 +25,8 @@ const Header: NextPage<Props> = () => {
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
 
+    const [guestNumber, setGuessNumber] = useState(1);
+
     const selectionRange: selectionRange = {
         startDate: startDate,
         endDate: endDate,
@@ -58,7 +60,9 @@ const Header: NextPage<Props> = () => {
                 <SearchIcon className="hidden md:inline-flex h-8 bg-red-400 text-white rounded-full p-2 cursor-pointer md:mx-2" />
             </div>
             <div className="flex items-center space-x-4 justify-end text-gray-500">
-                <p className="hidden md:inline cursor-pointer">Become a host</p>
+                <p className="hidden md:inline mx-1 text-center cursor-pointer">
+                    Become a host
+                </p>
                 <GlobeAltIcon className="h-6" />
                 <div className="flex items-center space-x-2 border-2 p-2 rounded-full">
                     <MenuIcon className="h-6" />
@@ -66,14 +70,26 @@ const Header: NextPage<Props> = () => {
                 </div>
             </div>
             {searchInput && (
-                <div>
+                <div className="flex flex-col col-span-3 mx-auto">
                     <DateRangePicker
                         ranges={[selectionRange]}
                         minDate={new Date()}
                         rangeColors={['#FD5861']}
                         onChange={handleSelect}
                     />
-                    <h1>{searchInput}</h1>
+                    <div className="flex items-center border-b mb-4">
+                        <h2 className="text-2xl flex-grow font-semibold">
+                            Number of Guests
+                        </h2>
+                        <UsersIcon className="h-5" />
+                        <input
+                            className="w-12 pl-2 text-lg outline-none text-red-400"
+                            type="number"
+                            min={1}
+                            value={guestNumber}
+                            onChange={(e) => setGuessNumber(parseInt(e.target.value))}
+                        />
+                    </div>
                 </div>
             )}
         </header>
